@@ -1,0 +1,7 @@
+#!/bin/sh
+
+installer -pkg /tmp/JamfConnectLogin-1.5.2.pkg -target /
+
+/usr/local/bin/authchanger -reset -Okta -preAuth JamfConnectLogin:EULA JamfConnectLogin:RunScript,privileged JamfConnectLogin:Notify
+
+exit 0
