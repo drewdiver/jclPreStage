@@ -41,6 +41,14 @@ do
     sleep 2
 done
 
+# running caffeinate can be handy if you have a few policies that take time
+echo "Command: Status: Caffeinating..." >> "$DEPLOG"
+
+/usr/bin/caffeinate -disu&
+
+# get the caffeinate PID so we can kill at the end
+CPID="$!"
+
 #################################### JAMF TRIGGERS #######################################
 
 sleep 2
@@ -75,6 +83,9 @@ rm /var/tmp/com.depnotify.*
 # if you want to provision the user with Okta and switch back to the macOS login you can 
 #     also just /usr/local/bin/authchanger -reset
 /usr/local/bin/authchanger -reset -Okta
+
+# stop the caffeinate process
+kill $CPID
 
 # self-destruct!
 rm "$0"
